@@ -106,6 +106,21 @@ extern char *sort_word(char *word) {
     return word;
 }
     
+// escribe (printf) la lista de anagramas para ese hashnode
+// TODO: probar
+extern void print_anagrams(struct hashnode *hn){
+    int quantity = hn->wlist->qty;
+    if(quantity == 0){
+        printf("No hay anagramas.");
+        return;
+    }
 
-extern void print_anagrams(struct hashnode *hn);
-    // escribe (printf) la lista de anagramas para ese hashnode
+    printf("Anagramas: ")
+    struct listnode *list_pointer = hn->wlist->first;
+
+    for(int = 0; i < quantity; i++){
+        printf("%s, ", list_pointer->word);
+        list_pointer = list_pointer->next;
+    }
+}
+
