@@ -38,12 +38,27 @@ struct listnode {           // nodo de una lista enlazada simple
 
 struct hashnode *anagrams[HASHSIZE];
 
-extern struct list *list_create(void);
+extern struct list *list_create(void){
     // crea una lista vacía, retorna puntero a la misma
+    struct list *lista = {0};
+    return lista;
+};
+    
 
-extern struct list *list_insert_last_word(struct list *l, char *word);
+extern struct list *list_insert_last_word(struct list *l, char *word){
     // inserta una palabra al final de la lista l, retorna el puntero a la lista
     // si la lista es NULL, crea una nueva
+    struct listnode *next = {0};
+    struct listnode *nuevoNode = {word, next};
+    if(l->first == 0){ //no se pq no le gusta el null, no se si con 0 está bien igual REVISAR
+        struct list *lista = list_create();
+        return lista;
+    }else{
+        l->last->next = nuevoNode;//al puntero al ultimo le agrego el puntero al siguiente
+        l->last = nuevoNode;//cambio mi puntero al último a mi nuevo nodo que agregué
+        return l;
+    }
+};
 
 extern struct hashnode *hash_insert_word(struct hashnode *node, char *key, char *word);
     // busca key en el hash (y si no encuentra inserta key al inicio en lista simple)
