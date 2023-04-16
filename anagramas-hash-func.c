@@ -50,7 +50,7 @@ extern struct list *list_insert_last_word(struct list *l, char *word){
     // inserta una palabra al final de la lista l, retorna el puntero a la lista
     // si la lista es NULL, crea una nueva
     struct listnode *nuevoNode;
-    nuevoNode = malloc(sizeof (struct listnode));
+    nuevoNode = malloc(sizeof (struct listnode));   // cambiar por malloc_or_exit del wrapper
     nuevoNode->word = strdup(word);
     nuevoNode->next = NULL; //no se pq no le gusta el null, no se si con 0 estaría bien igual REVISAR
     if((l->first) == NULL){ 
@@ -71,11 +71,41 @@ extern struct hashnode *hash_insert_word(struct hashnode *node, char *key, char 
     // luego agrega palabra al final de la lista de anagramas asociadas a la key
     // retorna siempre el primero de la lista: node si key estaba o el nuevo nodo si se insertó
 
-extern unsigned int hash(char *str);
+/*
+    if(node == NULL){           // para esa posicion en el hash todavia no hay nada
+                                // segun def de hash(), el numero es unico, asi que solo tengo que buscar 
+                                // en el hashnode que me pasan (en main pasan anagrams[h])
+        node->key = strdup(key);
+        node->wlist = list_insert_last_word(, word);
+        // ?? node->next
+
+    
+    } else {
+        if(node->             
+    }
+*/
+
+
+extern unsigned int hash(char *str);        // ESTA TAMPOCO; ESTA EN hash.c
     // genera un número único (grande) asociado al string
 
-extern char *sort_word(char *word);
-    // ordena EN EL LUGAR la palabra 'word' según código ASCII en forma ascendente
+// ordena EN EL LUGAR la palabra 'word' según código ASCII en forma ascendente
+extern char *sort_word(char *word) {
+    // BUBBLESORT
+    length = strlen(word);
+    for(int i = 0; i < (length - 1); i++){        // hago una comparacion menos que el largo, porque el ultimo elemento no tengo con quien comparar
+         for (j = 0; j < length - i - 1; j++) {    // el - 1 es porque no puede el elemento compararse con si mismo 
+            if (strcmp(*word, *(word + 1)) > 0) {        // strcmp compara en ASCII - si el caracter es mayor al siguiente, cambio
+                int temp = *word;
+                *word = *(word + 1);
+                *(word + 1) = temp;
+            }
+         }
+    }
+
+    return word;
+}
+    
 
 extern void print_anagrams(struct hashnode *hn);
     // escribe (printf) la lista de anagramas para ese hashnode
