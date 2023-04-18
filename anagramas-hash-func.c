@@ -93,9 +93,9 @@ extern unsigned int hash(char *str);        // ESTA TAMPOCO; ESTA EN hash.c
 // ordena EN EL LUGAR la palabra 'word' según código ASCII en forma ascendente
 extern char *sort_word(char *word) {
     // BUBBLESORT
-    length = strlen(word);
+    int length = strlen(word);
     for(int i = 0; i < (length - 1); i++){        // hago una comparacion menos que el largo, porque el ultimo elemento no tengo con quien comparar
-         for (j = 0; j < length - i - 1; j++) {    // el - 1 es porque no puede el elemento compararse con si mismo 
+         for (int j = 0; j < length - i - 1; j++) {    // el - 1 es porque no puede el elemento compararse con si mismo 
             if (strcmp(*word, *(word + 1)) > 0) {        // strcmp compara en ASCII - si el caracter es mayor al siguiente, cambio
                 int temp = *word;
                 *word = *(word + 1);
@@ -116,10 +116,10 @@ extern void print_anagrams(struct hashnode *hn){
         return;
     }
 
-    printf("Anagramas: ")
+    printf("Anagramas: ");
     struct listnode *list_pointer = hn->wlist->first;
 
-    for(int = 0; i < quantity; i++){
+    for(int i = 0; i < quantity; i++){
         printf("%s, ", list_pointer->word);
         list_pointer = list_pointer->next;
     }
