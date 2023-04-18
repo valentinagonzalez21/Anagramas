@@ -155,7 +155,7 @@ extern void print_anagrams(struct hashnode *hn){
     printf("Anagramas: ");
     struct listnode *list_pointer = hn->wlist->first;
 
-    for(int = 0; i < quantity; i++){
+    for(int i = 0; i < quantity; i++){
         printf("%s, ", list_pointer->word);
         list_pointer = list_pointer->next;
     }
