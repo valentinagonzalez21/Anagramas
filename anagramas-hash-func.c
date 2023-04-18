@@ -57,6 +57,7 @@ extern struct list *list_insert_last_word(struct list *l, char *word){
         struct list *lista = list_create();
         lista->first = nuevoNode;
         lista->qty = 1;
+        lista->last = nuevoNode;
         return lista;
     }else{
         l->last->next = nuevoNode;//al puntero al ultimo le agrego el puntero al siguiente
