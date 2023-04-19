@@ -127,6 +127,7 @@ extern struct hashnode *hash_insert_word(struct hashnode *node, char *key, char 
 extern unsigned int hash(char *str);        // ESTA TAMPOCO; ESTA EN hash.c
     // genera un número único (grande) asociado al string
 
+/*
 // ordena EN EL LUGAR la palabra 'word' según código ASCII en forma ascendente
 extern char *sort_word(char *word) {
     // BUBBLESORT
@@ -137,6 +138,25 @@ extern char *sort_word(char *word) {
                 int temp = *word;
                 *word = *(word + 1);
                 *(word + 1) = temp;
+            }
+         }
+    }
+
+    return word;
+}
+*/
+
+// ordena EN EL LUGAR la palabra 'word' según código ASCII en forma ascendente
+extern char *sort_word(char *word) {
+    // BUBBLESORT
+    int length = strlen(word);
+    
+    for(int i = 0; i < (length - 1); i++){        // hago una comparacion menos que el largo, porque el ultimo elemento no tengo con quien comparar
+         for (int j = (i + 1) ; j < length; j++) { 
+            if (word[i] > word[j]) {        // compara en ASCII 
+                char temp = word[i];
+                word[i] = word[j];
+                word[j] = temp;
             }
          }
     }
