@@ -43,7 +43,9 @@ struct listnode {           // nodo de una lista enlazada simple
 extern struct list *list_create(void){
     // crea una lista vacía, retorna puntero a la misma
     struct list *lista;
-    lista = malloc_or_exit(sizeof (struct list));
+    lista = malloc_or_exit(sizeof(struct list));
+    lista->first = lista->last = NULL;
+    lista->qty = 0;
     return lista;
 };
     
@@ -52,21 +54,28 @@ extern struct list *list_insert_last_word(struct list *l, char *word){
     // inserta una palabra al final de la lista l, retorna el puntero a la lista
     // si la lista es NULL, crea una nueva
     struct listnode *nuevoNode;
-    nuevoNode = malloc_or_exit(sizeof (struct listnode));  
+    nuevoNode = malloc_or_exit(sizeof(struct listnode));  
     nuevoNode->word = strdup_or_exit(word);
     nuevoNode->next = NULL; //no se pq no le gusta el null, no se si con 0 estaría bien igual REVISAR
-    if((l->first) == NULL){ 
+
+    // faltaba un caso: first es null pero lista ya fue creada
+    if(l == NULL){
         struct list *lista = list_create();
-        lista->first = nuevoNode;
+        lista->first = lista->last = nuevoNode;
         lista->qty = 1;
-        lista->last = nuevoNode;
         return lista;
+    }
+    else if((l->first) == NULL){ 
+        l->first = l->last = nuevoNode;
+        l->qty = 1;
+        return l;
     }else{
         l->last->next = nuevoNode;//al puntero al ultimo le agrego el puntero al siguiente
         l->last = nuevoNode;//cambio mi puntero al último a mi nuevo nodo que agregué
         (l->qty)++;//aumento la cantidad de la lista
         return l;
     }
+    
 };
 
 extern struct hashnode *create_hash_node(char *key, char *word){
