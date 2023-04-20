@@ -65,7 +65,7 @@ extern struct list *list_insert_last_word(struct list *l, char *word){
         lista->qty = 1;
         return lista;
     }
-    else if((l->first) == NULL){ 
+    else if(l->first == NULL){ 
         l->first = l->last = nuevoNode;
         l->qty = 1;
         return l;
@@ -84,7 +84,7 @@ extern struct hashnode *create_hash_node(char *key, char *word){
     newhashnode->key = strdup_or_exit(key);
     // creo lista e inserto palabra 
     struct list *newlist;
-    newhashnode->wlist = list_insert_last_word(newlist, word);
+    newhashnode->wlist = list_insert_last_word(NULL, word);
     // el puntero next apunta a null porque es el ultimo de la lista
     newhashnode->next = NULL;
     
