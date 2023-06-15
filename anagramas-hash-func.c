@@ -83,7 +83,6 @@ extern struct hashnode *create_hash_node(char *key, char *word){
     // creo key
     newhashnode->key = strdup_or_exit(key);
     // creo lista e inserto palabra 
-    struct list *newlist;
     newhashnode->wlist = list_insert_last_word(NULL, word);
     // el puntero next apunta a null porque es el ultimo de la lista
     newhashnode->next = NULL;
@@ -176,18 +175,27 @@ extern char *sort_word(char *word) {
 // escribe (printf) la lista de anagramas para ese hashnode
 // TODO: probar
 extern void print_anagrams(struct hashnode *hn){
-    int quantity = hn->wlist->qty;
-    if(quantity == 0){
-        printf("No hay anagramas.");
+    int quantity;
+    if(hn == NULL){
         return;
     }
 
-    printf("Anagramas: ");
-    struct listnode *list_pointer = hn->wlist->first;
+    struct listnode *list_pointer;
 
-    for(int i = 0; i < quantity; i++){
-        printf("%s, ", list_pointer->word);
-        list_pointer = list_pointer->next;
+    for(; hn != NULL; hn = hn->next){
+        printf("Clave: %s ", hn->key);
+        printf("- Anagramas: ");
+        quantity = hn->wlist->qty;
+        list_pointer = hn->wlist->first;
+        for(int i = 0; i < quantity; i++){
+            printf("%s, ", list_pointer->word);
+            list_pointer = list_pointer->next;
+        }
+        printf("\n");
     }
+    
+    
+
+    
 }
 
